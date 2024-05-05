@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import ProductCart from '../components/ProductCart';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -25,24 +26,9 @@ const Home = () => {
   else
   return (
     <>
-      <div>Home</div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="mx-2 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1">
         {products.map((product) => (
-          <>
-          {/* <h1>Hello</h1> */}
-          <Link key={product.productId} to={`/product/${product.productId}`} className="no-underline">
-            <div
-              key={product.productId}
-              className="rounded-lg shadow-md bg-gradient-to-b p-4 transition duration-300 transform hover:scale-105"
-            >
-              <img src={product.image} alt={product.name} className="w-full" />
-              <h3 className="text-black text-lg font-semibold">{product.name}</h3>
-              <p className="text-gray-200">{product.description}</p>
-              <p className="text-black font-bold">${product.price}</p>
-              <p className="text-black">Rating: {product.rating}</p>
-            </div>
-          </Link>
-          </>
+          <ProductCart key={product.name} data={product}/>        
         ))}
       </div>
     </>

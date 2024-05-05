@@ -9,26 +9,25 @@ const Login = () => {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         if (!email || !password) {
             setError("Please fill in all fields.");
             return;
         }
-
-        axios.post('api/login', { email, password })
-            .then(result => {
-                console.log(result);
-                if (result.data === "Success") {
-                    console.log("Login Success");
-                    alert('Login successful!')
-                    navigate('/home');
-                } else {
-                    setError("Incorrect password! Please try again.");
-                }
-            })
-            .catch(err => console.log(err));
+    
+        try {
+            const response = await axios.post(`/api/auth/login`, { email, password });
+            if (response.status === 200) {
+                navigate('/');
+            } else {
+                setError("Invalid credentials. Please try again.");
+            }
+        } catch (error) {
+            setError("An error occurred. Please try again later.");
+        }
     }
+    
 
     return (
         <div>

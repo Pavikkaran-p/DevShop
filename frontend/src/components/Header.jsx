@@ -1,19 +1,21 @@
-// src/components/Header.js
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 const Header = () => {
   return (
-    // <header className="bg-gray-800 text-white p-4">
-      <nav className="flex justify-between items-center">
-        <Link  className="text-lg font-bold">Home</Link>
-        <div className="flex space-x-4 ">
-          <Link >Orders</Link>
-          <Link to='/about' >About Us</Link>
-          <Link to='/login' >Login</Link>
-          <Link to='/signup'>Signup</Link>
+    <div className='flex rounded-xl mx-1 mt-2 bg-blue-200 p-4 text-2xl font-sans'>
+      <div className="flex justify-between items-center">
+        <div className="flex space-x-4">
+          <Link to={'/'} className='"text-black mx-4 no-underline hover:text-green-300"'>Home</Link>
+          <Link to='/about' className={"text-black mx-4 no-underline hover:text-green-300"}>About Us</Link>
+          <Link to={'/cart'} className="text-black mx-4 no-underline hover:text-green-300">Cart</Link>
         </div>
-      </nav>
-    // </header>
+        <div className="flex space-x-4">
+          <Link to='/login' className="text-black mx-4 no-underline hover:text-green-300">Login</Link>
+          <Link to='/signup' className="text-black mx-4 no-underline hover:text-green-300">Signup</Link>
+        </div>
+      </div>
+    </div>
   );
 };
 

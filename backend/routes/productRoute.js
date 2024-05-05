@@ -1,6 +1,6 @@
 import express from 'express'
 // import { payment } from '../controller/razorpayController'
-import {   createProduct, getAllProducts, getProductById } from '../controller/productController.js';
+import {   addManyProducts, createProduct, getAllProducts, getProductById } from '../controller/productController.js';
 
 const productRouter=express.Router()
 
@@ -9,4 +9,5 @@ productRouter.get('/allProduct',getAllProducts)
 productRouter.get('/product/:productId',getProductById);
 
 productRouter.post('/addProduct',createProduct)
+productRouter.post('/addmany',addManyProducts)
 export default productRouter

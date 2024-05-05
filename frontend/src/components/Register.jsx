@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
     const [name, setName] = useState();
@@ -13,7 +15,7 @@ const Register = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         
-        axios.post( 'http://localhost:3001/register', {name, email, password})
+        axios.post( '/api/auth/register', {name, email, password})
         .then(result => {
             console.log(result);
             if(result.data === "Already registered"){
@@ -21,8 +23,11 @@ const Register = () => {
                 navigate('/login');
             }
             else{
-                alert("Registered successfully! Please Login to proceed.")
-                navigate('/login');
+                toast.success("Registered successfully")
+                setTimeout(() => {
+                    
+                    navigate('/login');
+                }, 3000);
             }
             
         })
@@ -82,6 +87,7 @@ const Register = () => {
                     <Link to='/login' className="btn btn-secondary">Login</Link>
                 </div>
             </div>
+            <ToastContainer autoClose={4000} />
         </div>
     )
 }

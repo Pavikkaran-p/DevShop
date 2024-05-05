@@ -54,3 +54,14 @@ export const createProduct = async (req, res) => {
   }
 };
 
+export const addManyProducts = async (req, res) => {
+  try {
+    const products = req.body; // Assuming req.body is an array of products
+    const insertedProducts = await Product.insertMany(products);
+
+    res.status(201).json({ message: 'Products created successfully', products: insertedProducts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};

@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Navigate, useNavigate } from 'react-router-dom';
 
-const RazorpayForm = () => {
-  const [amount, setAmount] = useState(500);
+const RazorpayForm = (props) => {
+  const navigate=useNavigate();
+  const {amount}=props;
+  console.log(amount)
   const [orderId, setOrderId] = useState('');
   function loadScript(src) {
     return new Promise((resolve) => {
@@ -30,7 +33,9 @@ const createOrder = async () => {
             return;
         }
       const response = await axios.post('http://localhost:3001/payment/createorder', { amount, currency: 'INR' });
+      console.log(response)
       const { orderId } = response.data;
+      console.log(orderId)
       setOrderId(orderId);
 
       const options = {
@@ -42,8 +47,7 @@ const createOrder = async () => {
         order_id: orderId,
         handler: function (response) {
           alert(response.razorpay_payment_id);
-          alert(response.razorpay_order_id);
-          alert(response.razorpay_signature);
+          navigate("/sucess");
         },
         prefill: {
           name: 'New user',
@@ -61,20 +65,25 @@ const createOrder = async () => {
       rzp1.open();
     } catch (err) {
       console.error(err);
+      navigate("/failure")
     }
   };
 
   return (
-    <div className="max-w-md mx-auto my-10 p-5 border border-gray-300 rounded-lg">
-      <h2 className="text-lg font-semibold mb-3">Make a Payment</h2>
+    <>
+    <div className="max-w-md mx-5 my-10 p-5 border border-gray-300 rounded-3">
+      <h2 className="text-lg font-semibold mb-3">Payment Details</h2>
       <div className="mb-3">
-        <label htmlFor="amount" className="block mb-1">Amount (INR)</label>
+        <h3 className="block mb-1 p-2">Amount : Rs.{amount}</h3>
+        <h3 className="block mb-1 p-2">Tax : 18% (included)</h3>
         
       </div>
       <button className={"w-full  bg-blue-500 text-black py-2 shadow-2xl rounded-3xl"} onClick={createOrder}>
         Pay Now
       </button>
+
     </div>
+    </>
   );
 };
 
