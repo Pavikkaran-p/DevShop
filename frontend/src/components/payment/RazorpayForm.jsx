@@ -32,7 +32,7 @@ const createOrder = async () => {
             alert("Razorpay SDK failed to load. Are you online?");
             return;
         }
-      const response = await axios.post('http://localhost:3001/payment/createorder', { amount, currency: 'INR' });
+      const response = await axios.post(`/api/payment/createorder`, { amount, currency: 'INR' });
       console.log(response)
       const { orderId } = response.data;
       console.log(orderId)
