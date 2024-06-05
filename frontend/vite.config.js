@@ -16,5 +16,15 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, ''),
       }
     }
+  },
+  build: {
+    proxy: {
+      "/api": {
+        target: "https://devshop-bzbj.onrender.com", 
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace("/api", ""),
+      }
+    }
   }
 })
