@@ -14,8 +14,8 @@ const ProductDescription = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        console.log('Fetching product:', `/api/shop/product/${id}`);
-        const response = await fetch(`/api/shop/product/${id}`);
+        // console.log('Fetching product:', `/api/shop/product/${id}`);
+        const response = await fetch(`/api/shop/product/1`);
         if (!response.ok) {
           throw new Error('Failed to fetch product');
         }
