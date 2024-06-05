@@ -15,7 +15,7 @@ const ProductCart = ({data}) => {
           </span> */}
           <img
             src={imageUrl}
-            alt={`image ${name}`}
+            alt={`image`}
             className="w-full h-full object-contain rounded-lg"
           />
         </figure>
