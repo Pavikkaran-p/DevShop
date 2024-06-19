@@ -12,6 +12,7 @@ export default defineConfig({
     proxy:{
       '/api':{
         target:'https://devshop-bzbj.onrender.com',
+        
         changeOrigin:true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       }
