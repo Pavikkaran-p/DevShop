@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ProductCart from '../components/ProductCart';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true)
+
+  const navigate = useNavigate();
   useEffect(() => {
+    if(!localStorage.getItem('token')) navigate('/login')
     const fetchProducts = async () => {
       try {
         const response = await fetch(`/api/shop/allProduct`);

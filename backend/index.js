@@ -2,10 +2,10 @@ import express from "express";
 import mongoose from "mongoose";
 import Razorpay from 'razorpay'
 import cors from "cors";
-import dotenv from 'dotenv'
 import productRouter from "./routes/productRoute.js";
 import authRouter from "./routes/authRoute.js";
 import paymentRouter from "./routes/paymentRoute.js";
+import dotenv from 'dotenv'
 dotenv.config()
 
 
