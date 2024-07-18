@@ -15,7 +15,7 @@ const ProductDescription = () => {
     const fetchProduct = async () => {
       try {
         // console.log('Fetching product:', `/api/shop/product/${id}`);
-        const response = await fetch(`https://devshop-bzbj.onrender.com/shop/product/${id}`);
+        const response = await fetch(`/api/shop/product/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch product');
         }

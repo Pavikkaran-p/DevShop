@@ -14,7 +14,6 @@ const Register = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        
         axios.post( '/api/auth/register', {name, email, password})
         .then(result => {
             console.log(result);
@@ -25,16 +24,12 @@ const Register = () => {
             else{
                 toast.success("Registered successfully")
                 setTimeout(() => {
-                    
                     navigate('/login');
                 }, 3000);
             }
-            
         })
         .catch(err => console.log(err));
     }
-
-
     return (
         <div>
             <div className="d-flex justify-content-center align-items-center text-center vh-100" style= {{backgroundImage : "linear-gradient(#00d5ff,#0095ff,rgba(93,0,255,.555))"}}>
@@ -91,5 +86,4 @@ const Register = () => {
         </div>
     )
 }
-
 export default Register
