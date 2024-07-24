@@ -9,7 +9,8 @@ console.log(SECRET_KEY)
 export const register = async (req, res) => {
   const { email, password } = req.body;
   
-  FormDataModel.findOne({ email: email })
+  try {
+    FormDataModel.findOne({ email: email })
     .then(user => {
       if (user) {
         res.json("Already registered");
@@ -19,6 +20,10 @@ export const register = async (req, res) => {
           .catch(err => res.json(err));
       }
     });
+  } catch (err) {
+    console.log(err)
+    return res.status(400)
+  }
 };
 
 export const login = async (req, res) => {
