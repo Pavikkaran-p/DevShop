@@ -10,6 +10,7 @@ import ShopCart from "./components/ShopCart";
 import Payment from "./components/payment/Payment";
 import Sucess from './components/payment/Sucess'
 import Failed from "./components/payment/Failed";
+import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <>
@@ -27,6 +28,7 @@ function App() {
             <Route path="/failure" element={<Failed/>}/>
             <Route path={'/payment/sucess'} element={ <Sucess/>}/>
           </Routes>
+          <ToastContainer/>
       </div>
     </>
   );

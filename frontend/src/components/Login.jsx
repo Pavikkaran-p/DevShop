@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Cookies from "js-cookie";
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -18,8 +21,11 @@ const Login = () => {
     
         try {
             const response = await axios.post(`/api/auth/login`, { email, password });
-            if (response.status === 200 && response.data.token) {
-                localStorage.setItem('token', response.data.token);
+            const token=response.data.token;
+            if (response.status === 200 && token) {
+                Cookies.set("auth-token",token,{path:'/'})
+                // localStorage.setItem('token', token);
+                toast.success("Login succesful")
                 navigate('/');
             } else {
                 setError("Invalid credentials. Please try again.");

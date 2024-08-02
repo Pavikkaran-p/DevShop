@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { addQuantity, selectQuantityById, subQuantity } from '../features/cart/cartSlice';
-import { ToastContainer, toast } from 'react-toastify';
+
 import 'react-toastify/dist/ReactToastify.css';
 
 const ProductDescription = () => {
@@ -85,7 +85,6 @@ const ProductDescription = () => {
               </button>
             </div>
           </div>
-          <ToastContainer autoClose={1200} />
         </>
       ) : (
         <div>Loading...</div>

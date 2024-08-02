@@ -16,7 +16,7 @@ export const register = async (req, res) => {
         res.json("Already registered");
       } else {
         FormDataModel.create(req.body)
-          .then(log_reg_form => res.json(log_reg_form))
+          .then(result => res.json(result))
           .catch(err => res.json(err));
       }
     });
@@ -33,7 +33,7 @@ export const login = async (req, res) => {
     .then(user => {
       if (user) {
         if (user.password === password) {
-          const token = jwt.sign({ email: user.email, id: user._id }, SECRET_KEY, { expiresIn: '1h' });
+          const token = jwt.sign({ email: user.email, id: user._id }, SECRET_KEY, { expiresIn: '30d' });
           res.json({ message: "Success", token: token });
         } else {
           res.status(401).json({ message: "Wrong password" });
@@ -47,3 +47,13 @@ export const login = async (req, res) => {
         res.status(500).json({ message: "Internal server error" })
     });
 };
+
+export const verifyToken=(req,res)=>{
+  try {
+    const token=req.cookies;
+    jwt.verify(token,SECRET_KEY);
+    res.send({"isTokenValid":true});
+  } catch (err) {
+    res.end("Invalid token")
+  }
+}
