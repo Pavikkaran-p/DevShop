@@ -39,7 +39,7 @@ const createOrder = async () => {
       setOrderId(orderId);
 
       const options = {
-        key: process.env.RAZORPAY_KEY,
+        key: process.env.RAZORPAY_KEY || 'jndjwndjn',
         amount: amount * 100,
         currency: 'INR',
         name: 'DevShop',

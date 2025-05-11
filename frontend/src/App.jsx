@@ -1,5 +1,5 @@
 import Header from "./components/Header";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Register from './components/Register'
@@ -11,13 +11,18 @@ import Payment from "./components/payment/Payment";
 import Sucess from './components/payment/Sucess'
 import Failed from "./components/payment/Failed";
 import { ToastContainer } from "react-toastify";
+import Landing from "./pages/Landing";
+
 function App() {
+  const location = useLocation();
+
   return (
     <>
       <div >
-          <Header/>
+          {location.pathname !== "/" && <Header />}
           <Routes>
-            <Route path='/' element={<Home/> } />
+            <Route path='/home' element={<Home/> } />
+            <Route path='/' element={<Landing/> } />
             <Route path='/product/:id' element={<ProductDescription/>}/>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login/>} />

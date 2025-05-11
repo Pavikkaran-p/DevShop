@@ -1,26 +1,53 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();
-  const signOutHandler=()=>{
-    localStorage.removeItem('token')
-    navigate('login')
-  }
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('auth-token');
+    setIsAuthenticated(token);
+  }, [isAuthenticated]);
+  console.log(isAuthenticated,"isAuthenticated")
+  const signOutHandler = () => {
+    localStorage.removeItem('auth-token');
+    setIsAuthenticated(false);
+    navigate('/login');
+  };
+
   return (
-    <div className='flex justify-between items-center rounded-xl mx-1 mt-2 bg-blue-200 p-4 text-2xl font-sans'>
-      <div className="flex space-x-4">
-        <Link to='/' className='text-black mx-4 no-underline hover:text-green-300'>Home</Link>
-        <Link to='/about' className='text-black mx-4 no-underline hover:text-green-300'>About Us</Link>
-        <Link to='/cart' className='text-black mx-4 no-underline hover:text-green-300'>Cart</Link>
-      </div>
-      <div className="flex items-center space-x-4">
-        <img src='/public/image.png' alt="User Logo" className="w-10 h-10 rounded-full" />
-        <button
-        onClick={signOutHandler}
-         className='text-black mx-4 no-underline hover:text-green-300'>Sign Out</button>
-      </div>
-    </div>
+    <header className="flex justify-between items-center bg-blue-100 rounded-xl mx-2 mt-2 px-6 py-3 shadow-sm">
+      {/* Nav Links */}
+      <nav className="flex space-x-6 text-lg font-medium">
+        <Link to="/" className="text-gray-800 hover:text-blue-600 transition-colors">Home</Link>
+        <Link to="/about" className="text-gray-800 hover:text-blue-600 transition-colors">About Us</Link>
+        <Link to="/cart" className="text-gray-800 hover:text-blue-600 transition-colors">Cart</Link>
+      </nav>
+
+      {/* Avatar & Dropdown */}
+      {isAuthenticated && (
+        <div className="relative">
+          <img
+            src="/image.png"
+            alt="User"
+            onClick={() => setShowDropdown(prev => !prev)}
+            className="w-10 h-10 rounded-full border cursor-pointer object-cover hover:opacity-90 transition-opacity duration-200"
+          />
+          {showDropdown && (
+            <div className="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+              <button
+                onClick={signOutHandler}
+                className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100"
+              >
+                Sign Out
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+    </header>
   );
 };
 

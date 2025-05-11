@@ -9,24 +9,23 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 
-
 const app = express();
 app.use(express.json());
 app.use(cors());
-
+const port=process.env.PORT || 3001
 app.use('/auth',authRouter)
 app.use('/shop',productRouter)
 app.use('/payment',paymentRouter)
 app.get('/',(req,res)=>{
     console.log("Working good")
-    res.send(200)
+    res.sendStatus(200)
 })
 
 
 
-app.listen(3001, () => {
+app.listen(port, () => {
     mongoose.connect(process.env.MONGODB_URL)
     .then(()=>console.log(`MongoDB connected to atlas`));
-    console.log("Server listining on http://127.0.0.1:3001");
+    console.log(`Server listining on port:${port}`);
 
 });

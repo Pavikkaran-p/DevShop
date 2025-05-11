@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ProductCart from '../components/ProductCart';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
+
   useEffect(() => {
-    if(!localStorage.getItem('token')) navigate('/login')
     const fetchProducts = async () => {
       try {
         const response = await fetch(`/api/shop/allProduct`);
@@ -19,22 +19,24 @@ const Home = () => {
         setProducts(data);
       } catch (error) {
         console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchProducts();
-    setLoading(false)
   }, []);
-  if(loading) return <h1>Fetching data...</h1>
-  else
+
+  if (loading) return <h1 className="text-center text-xl font-medium mt-10">Fetching data...</h1>;
+
   return (
-    <>
-      <div className="mx-2 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1">
+    <div className="container mx-auto px-4 py-8">
+      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {products.map((product) => (
-          <ProductCart key={product.name} data={product}/>        
+          <ProductCart key={product.name} data={product} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
