@@ -46,7 +46,7 @@ const createOrder = async () => {
         description: 'Payment for Your Product',
         order_id: orderId,
         handler: function (response) {
-          alert(response.razorpay_payment_id);
+          console.log(response.razorpay_payment_id);
           navigate("/sucess");
         },
         prefill: {
