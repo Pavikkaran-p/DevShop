@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addQuantity,subQuantity, removeItem, clearCart, changeAmount } from '../features/cart/cartSlice.js';
 import { Link } from 'react-router-dom';
+import EmptyCart from './Bag/EmptyCart.jsx';
 
 const ShopCart = () => {
   const cartItems = useSelector(state => state.cart.items);
@@ -9,7 +10,7 @@ const ShopCart = () => {
   const dispatch = useDispatch();
   let amount = 0;
   
-  if (cartItems.length === 0) return <div><h1>Cart is empty</h1></div>;
+  if (cartItems.length === 0) return <EmptyCart/>
   
   for (let i = 0; i < cartItems.length; i++) {
     amount+=(cartItems[i].price*cartItems[i].quantity);
